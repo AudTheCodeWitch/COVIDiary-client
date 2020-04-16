@@ -7,11 +7,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './custom.scss';
+import userReducer from './reducers/userReducer'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // set up store
-let store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+let store = createStore(userReducer, composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>
