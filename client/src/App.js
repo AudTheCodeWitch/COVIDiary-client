@@ -1,8 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
+import { Route } from 'react-router-dom';
+import auth from './auth';
+import axios from 'axios';
 import './App.css';
 
 class App extends React.Component {
+  componentWillMount() {
+    if (auth.isAuthenticated()) {
+      axios.defaults.headers.common = {
+        Authorization: auth.authorizationHeader()
+      }
+    }
+  }
 
   // test fetch
   // componentDidMount() {
@@ -28,6 +38,26 @@ class App extends React.Component {
             Learn React
           </a>
         </header>
+        <Route path="/login" render={() => auth.login()} />
+        <Route
+          path="/logout"
+          render={() => {
+            auth.logout()
+            console.log('logged out')
+            return <></>
+          }}
+        />
+        <Route path="/callback" render={() => {
+          auth.handleAuthentication(() => {
+            // NOTE: Uncomment the following lines if you are using axios
+            //       to set the axios authentication headers
+            axios.defaults.headers.common = {
+              Authorization: auth.authorizationHeader()
+            }
+          })
+          return <></>
+        }}
+        />
       </div>
     );
   }
