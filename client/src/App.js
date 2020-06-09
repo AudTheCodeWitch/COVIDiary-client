@@ -15,11 +15,30 @@ class App extends React.Component {
   }
 
   // test fetch
-  // componentDidMount() {
-  //   fetch('http://localhost:3000/api/users/1/entries')
-  //     .then(response => response.json())
-  //     .then(data => console.log(data))
-  // }
+  componentDidMount() {
+    // fetch all the public entries
+    fetch('http://localhost:3000/api/entries')
+      // take the response and convert it to json
+      .then(response => response.json())
+      // take the resulting json and log it to the console
+      .then(data => {
+        console.log("All public entries:", data);
+      })
+      // if there is an error, log an error message to the console
+      .catch((error) => {
+        console.error('Public Entries Error:', error);
+      });
+
+    // fetch the first user's entries
+    fetch('http://localhost:3000/api/users/1/entries')
+      .then(response => response.json())
+      .then(data => {
+        console.log("single user's entries:", data);
+      })
+      .catch((error) => {
+        console.error('Single User Entries Error:', error);
+      });
+  }
 
   render() {
     return (
