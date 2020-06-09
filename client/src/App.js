@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import auth from './auth';
 import axios from 'axios';
 import './App.css';
+import Footer from './components/Footer';
 
 class App extends React.Component {
   componentWillMount() {
@@ -77,6 +78,7 @@ class App extends React.Component {
           return <></>
         }}
         />
+        <Footer />
       </div>
     );
   }
